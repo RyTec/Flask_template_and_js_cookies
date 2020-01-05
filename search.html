@@ -1,0 +1,143 @@
+<! - sablonok / search.html ->
+{% kiterjeszti az "base.html"%}
+{% blokk felirat%} Keresés {% endblock%}
+{% block containerhead%}
+    < div  class = " zászló-fej " >
+        < div  class = " banner-1 " > </ div >
+            < div  class = " konténer " > < h1 > Globális keresés </ h1 > </ div >
+    </ div >
+{% endblock%}
+{% block content%}
+    {% üzenetekkel = get_flashed_messages (with_categories = true)%}
+        {%, ha az üzenetek%}
+            {% a kategória számára, üzenet az% üzenetekben}
+                < div  class = " riasztási riasztás - {{kategória}} riasztás-tiltott show " >
+                    < gomb  típusa = " gomb "  class = " bezárása "  data-dismiss = " figyelmeztetés " > X </ gomb >
+                    {{üzenet}}
+                </ div >
+            {% endfor%}
+        {% endif%}
+    {% endwith%}
+
+    < form  action = " / kereses "  method = " get "  class = " form-inline why-top-top " >
+        < div  class = " form-group " >
+        < Label  for = " megyei "  class = " megyei " > Megye: </ label >
+            < név kiválasztása  = " megye " class = " form-control " id = " megye " onchange = " county_change (); " szükséges >    
+            < opció  neve = " megye "  érték = " 0 " > ---- Válasz ---- </ opció >
+            {% az i megyében%%}
+                < opció  neve = " megye "  value = " {{i ['id']}} " > {{i ['megye_neve']}} </ opció >
+            {% endfor%}
+            </ select >
+        </ div >
+        < div  class = " form-group " >
+        < Label  for = " fajok "  class = " fajok " > Görögszéna: </ label >
+            < válasszon  név = " faj "  class = " form-control "  id = " faj "  onchange = " species_change (); "  szükséges >
+            < opció  neve = " faj "  érték = " 0 " > ---- Válasz ---- </ opció >
+            {% az i fajban%}
+                < opció  neve = " faj "  value = " {{i ['id']}} " > {{i ['fajnév']}} </ opció >
+            {% endfor%}
+            </ select >
+        </ div >
+        < div  class = " form-group " >
+        < Label  for = " kor "  class = " kor " > Kora: </ label >
+            < válassza a  name = " age "  class = " form-control "  id = " age "  onchange = " age_change (); " >
+            < opció  neve = " életkor "  érték = " 0 " > ---- Válasz ---- </ opció >
+            {% az i számára a% életkorban}
+                < opció  neve = " életkor "  érték = " {{i ['id']}} " > {{i ['életkor_neve']}} </ opció >
+            {% endfor%}
+            </ select >
+        </ div >
+        < div  class = " form-group " >
+        < Label  for = " méret "  class = " méret " > Mérete: </ label >
+            < Select  name = " size "  class = " form-control "  id = " size "  onchange = " size_change (); " >
+            < opció  neve = " méret "  érték = " 0 " > ---- Válasz ---- </ opció >
+            {% az i méretben_d%}
+                < Opciót  név = " size "  értéke = " {{i [ 'id']}} " > {{i [ 'size_name']}} </ opció >
+            {% endfor%}
+            </ select >
+        </ div >
+        < div  class = " form-group " >
+        < Label  for = " haj "  class = " haj " > Szörzet: </ label >
+            < Select  name = " hair "  class = " form-control "  id = " hair "  onchange = " hair_change (); " >
+            < opció  neve = " haj "  érték = " 0 " > ---- Válasz ---- </ opció >
+            {% az i-ről a hajban}
+                < opció  neve = " haj "  érték = " {{i ['id']}} " > {{i ['haj_neve']}} </ opció >
+            {% endfor%}
+            </ select >
+        </ Div > < br >
+        < div  class = " form-group " >
+        < label  class = " checkbox-inline " >
+            < Input  típusa = " négyzetet "  név = " ivartalanított "  értéke = " 1 "  id = " ivartalanított "  onclick = "ha (this.checked) {set_spayed (e);} " >
+            Ivartalan ellen </ label >
+        < label  class = " checkbox-inline " >
+            < input  type = " checkbox "  name = " dog_ok "  value = " 1 "  id = " dog_ok "  onclick = " if (this.checked) {set_dog_ok (this);} " >
+            Kutya kompatibilis </ label >
+        < label  class = " checkbox-inline " >
+            < input  type = " checkbox "  name = " cat_ok "  value = " 1 "  id = " cat_ok "  onclick = " if (this.checked) {set_cat_ok (this);} " >
+            Macska kompatibilis </ label >
+        < label  class = " checkbox-inline " >
+            < input  type = " jelölőnégyzet "  name = " kids_ok "  value = " 1 "  id = " kids_ok "  onclick = " if (this.checked) {set_kids_ok (this);} " >
+            Gyerek kompatibilis </ label >
+        </ div >
+        < div  class = " clearfix " > </ div >
+        < div  class = " form-inline " >
+            < Gomb  típus = " nyújtson "  class = " gmb gmb-default " > keresés </ gomb >
+            < gomb  type = " gomb "  onclick = " openForm () "  class = " btn btn-default "  style = " float : right ; "  id = " saveButton " > Keresés mentése </ gomb >
+        </ div >
+    </ forma >
+    < div  id = " sh_Popup " >
+        < div  class = " form-popup "  id = " sh_Form " >
+            < form  name = " saveSearch "  action = " / saveSearch "  class = " form-container "  method = " post " >
+                < label  for = " savesearchname " >
+                < Strong > ajd Nevet a keresésnek: </ strong >
+                </ label >
+                < input  type = " text "  id = " savesearchname "  helyőrző = " Searchem neve "  name = " savesearchname "  szükséges >
+                < input  type = " rejtett "  name = " county "  id = " county "  value = " " >
+                < input  type = " rejtett "  name = " faj "  id = " faj "  value = " " >
+                < input  type = " rejtett "  name = " age "  id = " age "  value = " " >
+                < input  type = " rejtett "  name = " size "  id = " size "  value = " " >
+                < input  type = " rejtett "  name = " hair "  id = " hair "  value = " " >
+                < input  type = " rejtett "  name = " spayed "  id = " spayed "  value = " " >
+                < input  type = " rejtett "  name = " dog_ok "  id = " dog_ok "  value = " " >
+                < input  type = " rejtett "  name = " cat_ok "  id = " cat_ok "  value = " " >
+                < input  type = " rejtett "  name = " kids_ok "  id = " kids_ok "  value = " " >
+                {%, ha sets.hash%}
+                    < ul  class = " tag-editor ui-sortable " >
+                        < li  style = " szélesség : 1 px " > & nbsp ; </ Li >
+                        < li >
+                            < div  class = " tag-editor-spacer " > & nbsp ; , </ div >
+                            < div  class = " tag-editor-tag " > válogatható </ div >
+                            < div  class = " tag-editor-delete " > </ div >
+                        </ Li >
+                        < li >
+                            < div  class = " tag-editor-spacer " > & nbsp ; , </ div >
+                            < div  class = " tag-editor-tag " > automatikus kiegészítés </ div >
+                            < div  class = " tag-editor-delete " > </ div >
+                        </ Li >
+                        < li >
+                            < div  class = " tag-editor-spacer " > & nbsp ; , </ div >
+                            < div  class = " tag-editor-tag " > szerkesztés a helyén </ div >
+                            < div  class = " tag-editor-delete " > </ div >
+                        </ Li >
+                        < li >
+                            < div  class = " tag-editor-spacer " > & nbsp ; , </ div >
+                            < div  class = " tag-editor-tag " > lap / kurzor navigáció </ div >
+                            < div  class = " tag-editor-delete " > </ div >
+                        </ Li >
+                    </ ul >
+                {% endif%}
+                < gomb  típusa = " beküldés "  class = " btn " > Mentés </ gomb >
+                < gomb  type = " gomb "  class = " btn Cancel "  onclick = " closeForm () " > Mégsem </ button >
+            </ forma >
+        </ div >
+    </ div >
+    < szkript >
+        function  openForm () { dokumentum . getElementById ( " sh_Popup " ). stílus . display = " blokk " ; }
+        funkció  closeForm () { dokumentum . getElementById ( " sh_Popup " ). stílus . display =  " nincs " ; }
+        ablak . onclick  =  függvény ( esemény ) { var modal =  document . getElementById ( ' sh_Popup ' );
+            if ( esemény . cél  == modális) { closeForm ();}}
+    </ script >
+    {% ha search_data%}
+        < div  class = " keresés " > {{search_data}} </ div >
+    {% endif%}
+{% endblock%}
