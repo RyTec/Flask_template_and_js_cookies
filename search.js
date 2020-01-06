@@ -76,7 +76,7 @@ function set_cat_ok() {
     if (cat_ok.checked == true){
         setCookie("search_cat_ok", 1, 1);
     }
-    if (dog_ok.checked == false){
+    if (cat_ok.checked == false){
         setCookie("search_cat_ok", 0, 1);
     }
 }
@@ -85,7 +85,7 @@ function set_kids_ok() {
     if (kids_ok.checked == true){
         setCookie("search_kids_ok", 1, 1);
     }
-    if (dog_ok.checked == false){
+    if (kids_ok.checked == false){
         setCookie("search_kids_ok", 0, 1);
     }
 }
@@ -106,18 +106,19 @@ $(document).ready(function() {
 	if (getCookie("search_hair")){
         $('#hair')[0].value = getCookie("search_hair");
     }
-	if (getCookie("search_spayed")){
+	if (getCookie("search_spayed") == 1){
 	    document.getElementById("spayed").checked = true;
-    }
-    if (getCookie("search_dog_ok")){
+    } else { document.getElementById("spayed").checked = false; }
+    if (getCookie("search_dog_ok") == 1){
 	    document.getElementById("dog_ok").checked = true;
-    }
-    if (getCookie("search_cat_ok")){
+    } else { document.getElementById("dog_ok").checked = false; }
+    if (getCookie("search_cat_ok") == 1){
 	    document.getElementById("cat_ok").checked = true;
-    }
-    if (getCookie("search_kids_ok")){
+    } else { document.getElementById("cat_ok").checked = false; }
+    if (getCookie("search_kids_ok") == 1){
 	    document.getElementById("kids_ok").checked = true;
-    }
+    } else { document.getElementById("kids_ok").checked = false; }
+
 	document.saveSearch.county.value = getCookie("search_county");
 	document.saveSearch.species.value = getCookie("search_species");
 	document.saveSearch.age.value = getCookie("search_age");
